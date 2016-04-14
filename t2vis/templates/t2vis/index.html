@@ -1,0 +1,36 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>T2 Visualization</title>
+	<link rel="stylesheet" type="text/css" href="/static/css/main.css" />
+	<link href="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.css" rel="stylesheet" type="text/css"/>
+	<script src="http://cdn.pydata.org/bokeh/release/bokeh-0.10.0.min.js"></script>
+</head>
+<body>
+<h1>Visualization test</h1>
+{% if fatalError %}
+    <p>{{ fatalError }}</p>
+{% else %}
+	<form  action="" method="post">
+		{% csrf_token %}
+		<button type="submit">Display</button>
+		{% if locNames %}
+			<select name="location">
+				{% for v in locNames %}
+					{% if forloop.counter0 == selectedLocationIdx %}
+						<option value="{{ forloop.counter0 }}" selected>{{ v }}</option>
+					{% else %}
+						<option value="{{ forloop.counter0 }}">{{ v }}</option>
+					{% endif %}
+				{% endfor %}
+			</select>
+		{% endif %}
+	</form>
+	{% if script and div %}
+    	{{ script|safe }}
+    	{{ div|safe }}
+    {% endif %}
+{% endif %}
+</body>
+</html>
